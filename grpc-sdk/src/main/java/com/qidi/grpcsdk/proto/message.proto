@@ -1,0 +1,37 @@
+// 1. Proto 文件定义
+// src/main/proto/message.proto
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.qidi.grpcsdk.idl";
+option java_outer_classname = "MessageProto";
+
+package message;
+
+service MessageService {
+  rpc hello (HelloRequest) returns (HelloResponse) {}
+  //服务端流式，类似于股票推送，不同时间的数据变化，服务端变化，广播类的
+  rpc helloServerStream (HelloRequest) returns (stream HelloResponse) {}
+  //客户端流式，客户端流式发送，类似于物联网iot场景，客户端生产数据
+  rpc helloClientStream (stream HelloRequest) returns (HelloResponse) {}
+  // 双向流式，一般都是双工流式。 服务端流式，也只有大模型那种推送了
+  rpc helloBidiStream (stream HelloRequest) returns (stream HelloResponse) {}
+
+  rpc helloList(HelloListRequest) returns(HelloResponse) {};
+
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string result = 1;
+}
+
+//重复对象
+message HelloListRequest {
+  repeated string name = 1;
+}
+
+

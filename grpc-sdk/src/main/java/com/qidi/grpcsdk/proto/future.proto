@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.qidi.grpcsdk.idl";
+option java_outer_classname = "FutureProto";
+
+service FutureService {
+
+  //类似于响应式变成的调用，服务端和客户端只能是一来一回的 一元rpc模式
+  rpc future(FutureRequest) returns(FutureResponse) {};
+
+}
+
+message FutureRequest {
+  string name = 1;
+}
+
+message FutureResponse {
+  string data = 1;
+}
